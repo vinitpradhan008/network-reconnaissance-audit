@@ -1,0 +1,216 @@
+NETWORK RECONNAISSANCE & PORT SCANNING AUDIT
+Ethical Network Security Assessment
+
+Prepared By: Vinit pradhan
+Date: 03 October 2026
+
+Scanner: Kali Linux
+Scanner IP: 192.168.56.103
+Target: Authorized Windows Lab Host
+Target IP: 172.20.208.1
+
+Tools Used:
+Nmap 7.99
+Wireshark
+Kali Linux
+
+1. Executive Summary
+
+This report documents an authorized network reconnaissance and port scanning assessment performed against a simulated Windows lab host.
+
+Nmap was used to perform TCP SYN scanning, UDP scanning, service and version detection, and operating system detection. Wireshark was used to capture and analyze network traffic generated during the reconnaissance activity.
+
+The assessment identified multiple accessible TCP and UDP services on the target host. Wireshark analysis confirmed TCP SYN traffic and HTTP traffic during the packet capture.
+
+The purpose of the assessment was to identify exposed network services and document potential areas that should be reviewed and appropriately secured.
+
+2. Objective
+
+The objectives of this assessment were:
+
+Identify open TCP ports on the authorized target.
+
+Identify accessible UDP services.
+
+Determine services associated with open ports.
+
+Perform service and version detection.
+
+Perform operating system detection.
+
+Capture and analyze reconnaissance traffic using Wireshark.
+
+Identify potentially unnecessary or exposed network services.
+
+Provide security recommendations based on the observed results.
+
+3. Scope and Authorization
+
+The assessment was performed against an authorized simulated Windows laboratory environment.
+
+Scanner: Kali Linux
+Scanner IP: 192.168.56.103
+Target: Authorized Windows Lab Host
+Target IP: 172.20.208.1
+
+The testing activities were limited to network reconnaissance, port scanning, service identification, and packet analysis.
+
+4. Methodology
+
+The following techniques were used:
+
+4.1 TCP SYN Scan
+
+Nmap TCP SYN scanning was used to identify accessible TCP ports.
+
+4.2 UDP Scan
+
+Nmap scanned the top 100 UDP ports to identify UDP services.
+
+4.3 Service and Version Detection
+
+Nmap service detection was used to identify services and available version information.
+
+4.4 OS Detection
+
+Nmap OS detection was performed to determine whether the target operating system could be reliably fingerprinted.
+
+4.5 Wireshark Packet Analysis
+
+Wireshark was used to capture and analyze network traffic generated during the reconnaissance activity. TCP SYN traffic, HTTP traffic, UDP-related traffic, and protocol hierarchy information were examined.
+
+5. TCP SYN Scan Results
+
+The TCP SYN scan identified five open TCP ports.
+
+Port	State	Service
+135/tcp	Open	MSRPC
+139/tcp	Open	NetBIOS-SSN
+445/tcp	Open	Microsoft-DS
+2179/tcp	Open	vmrdp
+7070/tcp	Open	RealServer
+
+A total of 995 TCP ports were reported as filtered.
+
+6. UDP Scan Results
+A UDP scan of the top 100 UDP ports was performed.
+
+Port	State	Service
+53/udp	Open	Domain/DNS
+137/udp	Open|filtered	NetBIOS-NS
+138/udp	Open|filtered	NetBIOS-DGM
+1900/udp	Open|filtered	UPnP
+
+A total of 96 UDP ports were reported as filtered.
+
+The open|filtered state means that Nmap could not conclusively determine whether the port was open or filtered. Therefore, ports 137, 138, and 1900 are not treated as confirmed open services.
+
+7. Service and Version Detection
+Nmap service detection identified the following services:
+
+Port	Service / Detection
+135/tcp	Microsoft Windows RPC
+139/tcp	Microsoft Windows NetBIOS-SSN
+445/tcp	Microsoft-DS
+2179/tcp	vmrdp?
+7070/tcp	ssl/realserver?
+
+Nmap identified Windows-related service information. Exact service identification was inconclusive for some ports, as indicated by the ? symbols in the Nmap output.
+
+8. Operating System Detection
+Nmap OS detection was performed against the target.
+The OS detection result was inconclusive. Nmap explicitly reported that the OS scan results may be unreliable because it could not find at least one suitable open and one closed port.
+Nmap produced several virtualization/network-device-related guesses, but no exact operating system match was established.
+Therefore, the OS detection guesses are not treated as definitive evidence.
+The service detection scan did provide Windows-related service information.
+
+10. Security Findings
+Finding 1 — Microsoft RPC Exposure
+Port: TCP/135
+Observation:
+Microsoft Windows RPC was detected as an open service.
+Security Consideration:
+RPC services can increase the network attack surface when unnecessarily accessible.
+Recommendation:
+Restrict RPC access using Windows Firewall and network segmentation where appropriate.
+
+Finding 2 — NetBIOS and SMB Exposure
+Ports: TCP/139 and TCP/445
+Observation:
+NetBIOS and Microsoft-DS/SMB-related services were detected.
+Security Consideration:
+These services should be accessible only from trusted systems and networks where they are required.
+Recommendation:
+Restrict SMB and NetBIOS access using firewall rules and disable unnecessary legacy services.
+
+Finding 3 — DNS Service
+Port: UDP/53
+Observation:
+A DNS service was detected as open.
+Security Consideration:
+The service should be reviewed to ensure that it is intentionally enabled and accessible only to appropriate clients.
+Recommendation:
+Restrict DNS access according to the intended network architecture and service requirements.
+
+Finding 4 — Additional TCP Services
+Ports: TCP/2179 and TCP/7070
+Observation:
+Both ports were identified as open. Nmap could not conclusively determine the exact service versions.
+Security Consideration:
+Unknown or unnecessary network services can increase the exposed service surface.
+Recommendation:
+Identify the applications listening on these ports and disable them if they are not required. If required, ensure that the applications are updated and access-controlled.
+
+Finding 5 — Potential UPnP Exposure
+Port: UDP/1900
+Observation:
+UDP/1900 was reported as open|filtered and associated with UPnP.
+Security Consideration:
+The result does not conclusively establish that the port is open.
+Recommendation:
+Verify whether UPnP is enabled and required. Disable it if it is unnecessary.
+
+11. Recommendations
+Based on the observed results, the following recommendations are proposed:
+Disable network services that are not required.
+Restrict TCP/135 RPC access to trusted systems.
+Review and restrict SMB/NetBIOS services on TCP/139 and TCP/445.
+Use Windows Firewall to restrict unnecessary inbound connections.
+Review the DNS service on UDP/53 and ensure it is intentionally configured.
+Identify the applications associated with TCP/2179 and TCP/7070.
+Disable UPnP if it is not required.
+Keep Windows and installed applications updated with current security patches.
+Use network segmentation to limit access to administrative and file-sharing services.
+Continue monitoring network traffic for unexpected services or protocols.
+
+12. Conclusion
+
+The authorized network reconnaissance assessment successfully identified multiple TCP and UDP services on the simulated Windows target.
+
+Nmap identified five open TCP ports and one confirmed open UDP port, while additional UDP ports were reported as open|filtered.
+
+Service detection provided information about several Windows-related services. OS fingerprinting was inconclusive and was therefore not treated as definitive.
+
+Wireshark analysis confirmed TCP SYN traffic generated during reconnaissance and also identified HTTP traffic in the packet capture. UDP-related traffic and protocol hierarchy information were also reviewed.
+
+The assessment provides a baseline of the target's exposed network services. The identified services should be reviewed according to their operational requirements and restricted or disabled where appropriate.
+
+13. Evidence Summary
+The following evidence was collected during the assessment:
+TCP SYN Nmap scan output
+UDP Nmap scan output
+Nmap service/version detection output
+Nmap OS detection output
+Wireshark TCP SYN packet capture
+Wireshark HTTP packet capture
+Wireshark UDP packet capture
+Wireshark Protocol Hierarchy screenshot
+
+14. Tools Used
+Kali Linux
+Nmap 7.99
+Wireshark
+
+15. Final Assessment Statement
+This assessment was conducted within an authorized simulated laboratory environment. The results represent observations made during the assessment period and should be interpreted within the context of the configured lab environment.
+
