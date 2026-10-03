@@ -5,9 +5,9 @@ Prepared By: Vinit pradhan
 Date: 03 October 2026
 
 Scanner: Kali Linux
-Scanner IP: 192.168.56.103
+Scanner IP: 192.168.xx.xx
 Target: Authorized Windows Lab Host
-Target IP: 172.20.208.1
+Target IP: 172.20.xx.xx
 
 Tools Used:
 Nmap 7.99
@@ -49,9 +49,9 @@ Provide security recommendations based on the observed results.
 The assessment was performed against an authorized simulated Windows laboratory environment.
 
 Scanner: Kali Linux
-Scanner IP: 192.168.56.103
+Scanner IP: 192.168.xx.xx
 Target: Authorized Windows Lab Host
-Target IP: 172.20.208.1
+Target IP: 172.20.xx.xx
 
 The testing activities were limited to network reconnaissance, port scanning, service identification, and packet analysis.
 
