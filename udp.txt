@@ -1,0 +1,11 @@
+# Nmap 7.99 scan initiated Sat Oct  3 05:52:16 2026 as: /usr/lib/nmap/nmap -sU --top-ports 100 -oN udp.txt 172.20.208.1
+Nmap scan report for 172.20.208.1
+Host is up (0.0012s latency).
+Not shown: 96 filtered udp ports (port-unreach)
+PORT     STATE         SERVICE
+53/udp   open          domain
+137/udp  open|filtered netbios-ns
+138/udp  open|filtered netbios-dgm
+1900/udp open|filtered upnp
+
+# Nmap done at Sat Oct  3 05:52:19 2026 -- 1 IP address (1 host up) scanned in 3.16 seconds

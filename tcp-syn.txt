@@ -1,0 +1,12 @@
+# Nmap 7.99 scan initiated Sat Oct  3 05:51:04 2026 as: /usr/lib/nmap/nmap -sS -oN tcp-syn.txt 172.20.208.1
+Nmap scan report for 172.20.208.1
+Host is up (0.0013s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+2179/tcp open  vmrdp
+7070/tcp open  realserver
+
+# Nmap done at Sat Oct  3 05:51:10 2026 -- 1 IP address (1 host up) scanned in 5.52 seconds
